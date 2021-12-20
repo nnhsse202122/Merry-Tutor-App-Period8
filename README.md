@@ -1,2 +1,2 @@
 # Merry-Tutor-App-Period8
-An application for the Merry Tutor.
+An organization application for the Merry Tutor.
