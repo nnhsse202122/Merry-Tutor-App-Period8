@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <%- include("head.ejs") %>
+    </head>
+    <body class="d-flex flex-column min-vh-100 mt-4">
+        <%- include("navbar.ejs") %>
+        <div class="jumbotron w-75 mx-auto my-5 text-left">
+            <h1 class="display-1 text-danger"><%= description %></h1>
+            <hr class="my-4">
+            <p class="lead"><%= `Error ${code}` %></p>
+            <br>
+            <% if (code == 401) { %>
+                <a class="btn btn-lg btn-dark" href="/login" role="button">Sign Up or Log In</a>
+            <% } %>
+        </div>
+        <%- include("footer.ejs") %>
+    </body>
+</html>
