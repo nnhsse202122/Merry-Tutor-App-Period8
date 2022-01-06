@@ -30,7 +30,7 @@ app.use(async (req, res, next) => {
 })
 
 //routes
-app.use("/tutee", require("./routes/tutee.js")); //anything send to /student... will be sent to student.jsnpm 
+app.use("/tutee", require("./routes/tutee.js")); //anything send to /tutee... will be sent to tutee.js
 app.use("/summary", require("./routes/summary.js"));
 app.use("/auth", require("./routes/auth.js"));
 app.use("/autocomplete", require("./routes/autocomplete.js"));
