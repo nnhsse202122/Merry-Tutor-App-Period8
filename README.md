@@ -39,6 +39,24 @@ Node.js can be installed here: https://nodejs.org/en/download/
 4. Navigate to localhost:8080 to see the app running in a web browser
 5. Use "CTRL + c" to stop the application run
 
+## Architectural Overview
+
+### Client Side
+Client-side code is the code that runs in the user's web client (e.g., Chrome browser). This includes HTML, CSS, and Javascript. The client-side Javascript and CSS files are in the public folder in this repository. The HTML is generated from the EJS files in the views folder. EJS is a "templating language that lets you generate HTML markup with plain JavaScript".
+
+Most of the EJS files are associated with a single page in the web app (e.g., index, login, profile). A few of the EJS files are more general. The head.ejs file is included at the top of all other EJS files. Similarly, the footer.ejs file is included at the bottom of all other EJS files. This allows app-wide user interface elements to be defined in only one file. Similarly, the navbar.ejs file is included near the top of all other EJS files and encapsulates the navigation bar for the app. The client-server distinction can be a bit confusing when it comes to EJS files. The EJS files reside on the sever. The server processes the EJS files and sends the resulting HTML code to be executed on the client-side. So, while the EJS files reside on the serve, they define code that is executed on the client.
+
+Some of the client-side Javascript files are associated with a dynamic page in the web app (e.g., login, managetutor, profile). Other Javascript files support a specific feature that may be used in multiple pages (e.g., autocomplete, card-filter).
+
+Client-side code interacts with the web application server via various endpoints and HTTP commands. It is important to understand clearly which code runs on the client side nad which code runs on the server side. This is especially important when it comes to security as client-side is an untrusted environment (a malicious user can change the code in any manner they desire) and server-side is a trusted environment (only developers have access to the code running on the server).
+
+### Server Side
+Server-side code is the code that runs on the web server (e.g., Amazon Web Services elastic container or your local development machine). This code consists entirely of Javascript. The main file is app.js, which performs initialization and defines all the routes (endpoints) for the app. While an entire app can be defined in the app.js file, various responsibilities are decomposed into other files.
+
+The db.js file encapsulates everything related to the database. It handles database access for production (local MongDB instance) and development (Atlas MongoDB server). It defines the schema for Users and Sessions. It also provides methods to access these models.
+
+The other Javascript files are located in the routes folder and support one or more routes. While the specifics are unique to each route, in general, HTTP GET commands perform user authentication, then database access, and finally renders the corresponding EJS file. In general, HTTP POST commands perform user authentication, then database access, and finally return a result to indicate success or failure.
+
 ## Production Server Deployment
 
 1. Create a new EC2 instance used on Ubuntu.
