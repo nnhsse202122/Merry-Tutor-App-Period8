@@ -1,4 +1,4 @@
-const passport = require('passport-local');
+const passport = require('passport');
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
