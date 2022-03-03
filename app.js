@@ -17,16 +17,11 @@ const { Router, response } = require("express");
 const db = require("./db.js");
 const mongoose = require('mongoose')
 
-const bcrypt = require('bcrypt');
 const { UserRefreshClient } = require("google-auth-library");
 
 //passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(UserDetails.createStrategy());
-passport.serializeUser(UserDetails.serializeUser());
-passport.deserializeUser(UserDetails.deserializeUser());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
 //app.use takes a function that is added to the path of a request. When we call next() it goes to the next function in the path 
