@@ -27,6 +27,26 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model("User", userSchema);
 
+// new passport method
+const PassportUserSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true  
+    },
+
+    email: {
+        type: String,
+        required: true  
+    },
+
+    password: {
+        type: String,
+        required: true  
+    }
+});
+
+const PassportUser = mongoose.model('PassportUser', PassportUserSchema);
+
 const sessionSchema = new mongoose.Schema({
     date: Date,
     tutor: {

@@ -1,6 +1,6 @@
 require("dotenv").config();
-let express = require("express");
-let app = express(); //create express app
+const express = require("express");
+const app = express(); //create express app
 
 app.set("view engine", "ejs"); //use EJS for view engine
 app.use(express.static("public")) //static files served from /public/, (eg. url.com/img/example.png serves from /public/img/example.png)
@@ -12,10 +12,21 @@ let bodyParser = require("body-parser");
 app.use(bodyParser.json()); //body parser for json
 app.use(bodyParser.urlencoded()); //body parser for urlencoded
 
-const { Router } = require("express");
+const { Router, response } = require("express");
 
 const db = require("./db.js");
 const mongoose = require('mongoose')
+
+const bcrypt = require('bcrypt');
+const { UserRefreshClient } = require("google-auth-library");
+
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(UserDetails.createStrategy());
+passport.serializeUser(UserDetails.serializeUser());
+passport.deserializeUser(UserDetails.deserializeUser());
 
 
 //app.use takes a function that is added to the path of a request. When we call next() it goes to the next function in the path 
@@ -43,7 +54,19 @@ app.get("/", (req,res) => {
 })
 
 app.get("/login", (req,res) => {
-    res.render("login");
+    res.render("login.ejs");
+})
+
+app.post("/login", (req,res) => {
+    // need to get done
+})
+
+app.get("/register", (req,res) => {
+    res.render("register.ejs")
+})
+
+app.post("/register", async (req,res) => {
+    // need to get done
 })
 
 //error handler
