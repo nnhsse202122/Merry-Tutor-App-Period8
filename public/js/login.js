@@ -6,7 +6,7 @@ gapi.load("auth2", () => { //load the google auth2 api and start it (loaded prev
 })
 
 document.querySelector("#google-login").addEventListener("click",doLogin); 
-document.querySelector("#auth-register").addEventListener("click",doPassportLogin); 
+document.querySelector("#auth-register").addEventListener("click",doPassportLogin);
 
 if (new URL(window.location.href).searchParams.get("firstTimeFlow") != null) doLogin();
 
