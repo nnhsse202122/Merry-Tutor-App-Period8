@@ -52,17 +52,12 @@ app.get("/login", (req,res) => {
     res.render("login.ejs");
 })
 
-app.post("/login", (req,res) => {
-    // need to get done
-})
 
 app.get("/register", (req,res) => {
     res.render("register.ejs")
 })
 
-app.post("/register", async (req,res) => {
-    // need to get done
-})
+
 
 //error handler
 app.use((err, req, res, next) => {

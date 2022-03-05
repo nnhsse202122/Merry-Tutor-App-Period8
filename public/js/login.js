@@ -6,33 +6,15 @@ gapi.load("auth2", () => { //load the google auth2 api and start it (loaded prev
 })
 
 document.querySelector("#google-login").addEventListener("click",doLogin); 
+document.querySelector("#auth-register").addEventListener("click",doPassportLogin); 
 
 if (new URL(window.location.href).searchParams.get("firstTimeFlow") != null) doLogin();
 
-// doLogin for passport
-/*
-get done
-*/
+
 
 async function doPassportLogin() {
-    let newUserData = {};
-    if(new URL(window.location.href).searchParams.get("firstTimeFlow") === null) {
-        // things get different here
-    }
-
-    //check if user has roles, if they do, assume they don't need more data. If they don't, send them through the first time login flow
-    if (user.roles.length != 0) {
-        if(user.roles.includes("tutor")){
-            window.location = "/summary/new";
-        } else if(user.roles.includes("parent")){
-            window.location = "/parent/mytuteesummaries";
-        } else if(user.roles.includes("tutee")){
-            window.location = "/tutee/" + user._id;
-        } else{
-            window.location = window.location.origin;
-        }
-        return;
-    }
+    // change this to passport
+    console.log("dfsdf");
 }
 
 async function doLogin() { //add click listener to #google-login button which will do the login
