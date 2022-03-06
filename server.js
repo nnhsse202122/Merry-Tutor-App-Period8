@@ -15,8 +15,8 @@
     var configDB = require('./config/database.js');
 
     // configuration ===============================================================
-    //mongoose.connect(configDB.url); // connect to our database
-    const connected = mongoose.connect(configDB.url, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log(err));
+    mongoose.connect(configDB.url); // connect to our database
+    //const connected = mongoose.connect(configDB.url, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log(err));
 
 
     require('./config/passport')(passport); // pass passport for configuration
