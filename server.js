@@ -9,7 +9,7 @@
 
     var morgan       = require('morgan');
     var cookieParser = require('cookie-parser');
-    var bodyParser   = require('body-parser');
+    //var bodyParser   = require('body-parser');
     var session      = require('express-session');
 
     var configDB = require('./config/database.js');
@@ -24,9 +24,14 @@
     // set up our express application
     app.use(morgan('dev')); // log every request to the console
     app.use(cookieParser()); // read cookies (needed for auth)
+    
     //app.use(bodyParser()); // get information from html forms
-    app.use(bodyParser.urlencoded());
-    app.use(bodyParser.json());
+    //app.use(bodyParser.urlencoded());
+    //app.use(bodyParser.json());
+    app.use(express.json());
+    app.use(express.urlencoded({
+        extended: true
+    }));
 
 
 
