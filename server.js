@@ -26,13 +26,13 @@
     app.use(cookieParser()); // read cookies (needed for auth)
     
     //app.use(bodyParser()); // get information from html forms
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded());
-    //app.use(express.json());
-    /*app.use(express.urlencoded({
+    //app.use(bodyParser.json());
+    //app.use(bodyParser.urlencoded());
+    app.use(express.json());
+    app.use(express.urlencoded({
         extended: true
     }));
-    */
+    
 
 
     app.set('view engine', 'ejs'); // set up ejs for templating
