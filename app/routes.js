@@ -94,34 +94,6 @@ module.exports = function(app, passport) {
                         failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
                         failureFlash : true // allow flash messages
                     }));
-        
-                // facebook -------------------------------
-        
-                    // send to facebook to do the authentication
-                    app.get('/connect/facebook', passport.authorize('facebook', {
-                      scope : ['public_profile', 'email']
-                    }));
-        
-                    // handle the callback after facebook has authorized the user
-                    app.get('/connect/facebook/callback',
-                        passport.authorize('facebook', {
-                            successRedirect : '/profile',
-                            failureRedirect : '/'
-                        }));
-        
-                // twitter --------------------------------
-        
-                    // send to twitter to do the authentication
-                    app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
-        
-                    // handle the callback after twitter has authorized the user
-                    app.get('/connect/twitter/callback',
-                        passport.authorize('twitter', {
-                            successRedirect : '/profile',
-                            failureRedirect : '/'
-                        }));
-        
-        
                 // google ---------------------------------
         
                     // send to google to do the authentication
@@ -152,25 +124,6 @@ module.exports = function(app, passport) {
                 res.redirect('/profile');
             });
         });
-
-        // facebook -------------------------------
-        app.get('/unlink/facebook', function(req, res) {
-            var user            = req.user;
-            user.facebook.token = undefined;
-            user.save(function(err) {
-                res.redirect('/profile');
-            });
-        });
-
-        // twitter --------------------------------
-        app.get('/unlink/twitter', function(req, res) {
-            var user           = req.user;
-            user.twitter.token = undefined;
-            user.save(function(err) {
-               res.redirect('/profile');
-            });
-        });
-
         // google ---------------------------------
         app.get('/unlink/google', function(req, res) {
             var user          = req.user;
@@ -180,7 +133,7 @@ module.exports = function(app, passport) {
             });
         });
             };
-        
+
             // route middleware to ensure user is logged in
             function isLoggedIn(req, res, next) {
                 if (req.isAuthenticated())
