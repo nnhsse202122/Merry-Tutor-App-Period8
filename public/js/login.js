@@ -5,9 +5,119 @@ gapi.load("auth2", () => { //load the google auth2 api and start it (loaded prev
     gapi.auth2.init();
 })
 
-document.querySelector("#google-login").addEventListener("click",doLogin); 
+document.querySelector("#google-login").addEventListener("click",doLogin);
+document.querySelector("#auth-user-password").addEventListener("click",doLocalLogin);
 
 if (new URL(window.location.href).searchParams.get("firstTimeFlow") != null) doLogin();
+
+
+
+
+
+
+
+
+
+
+async function doLocalLogin() { //add click listener to #google-login button which will do the login
+    let newUserData = {};
+    if (new URL(window.location.href).searchParams.get("firstTimeFlow") === null) {
+
+        // passport local
+
+        //check if user has roles, if they do, assume they don't need more data. If they don't, send them through the first time login flow
+        if (user.roles.length != 0) {
+            if(user.roles.includes("tutor")){
+                window.location = "/summary/new";
+            } else if(user.roles.includes("parent")){
+                window.location = "/parent/mytuteesummaries";
+            } else if(user.roles.includes("tutee")){
+                window.location = "/tutee/" + user._id;
+            } else{
+                window.location = window.location.origin;
+            }
+            return;
+        }
+    }
+
+    console.log("Second Time")
+
+    //role select screen
+    showSlide("role-select");
+    for (let button of document.querySelectorAll("#role-select .signin-opts button")) {
+        button.addEventListener("click", () => {
+            console.log("BBBBB")
+            newUserData.isParent = button.id == "role-parent"; //if they are a parent, set isParent to true, else, set it to false
+                if (newUserData.isParent) { //if they selected parent, do this
+                showSlide("parent-tutee-dialog");
+                for (let button of document.querySelectorAll("#parent-tutee-dialog .signin-opts button")) {
+                    button.addEventListener("click", () => {
+                        if (button.id == "child-acc-yes") { //the parent's child has an account
+                            showSlide("parent-child-link");
+                            document.querySelector("#child-link-next").addEventListener("click", async () => {
+                                let email = document.querySelector("#parent-child-link input[name=tutee-email]").value;
+                                if (emailRegExp.test(email)) {
+                                    newUserData.existingChildEmail = email;
+                                    await submitNewUserData(newUserData);
+                                    window.location = "/parent/mytuteesummaries";
+                                }
+                            })
+                        } else { //the parent's child doesn't have an account
+                            for (let element of document.querySelectorAll(".parent-hide")) { //hide all the info that we already have about the tutee
+                                element.style.display = "none";
+                            }
+                            document.querySelector("#tutee-info .login-text h2").innerHTML = "Your Tutee's Information";
+                            showSlide("tutee-info");
+                            document.querySelector("#tutee-info-next").addEventListener("click", async () => {
+                                let email = document.querySelector("#tutee-info input[name=tutee-email]").value;
+                                let name = {};
+                                [name.last, name.first] = document.querySelector("#tutee-info input[name=tutee-name]").value.replace(", ",",").split(",");
+                                gradYear = parseInt(document.getElementById("tutee-grad-year").value)
+                                if ( name.last && name.first && (!email || emailRegExp.test(email)) && gradYear) {
+                                    newUserData.newChildData = {
+                                        name,
+                                        email,
+                                        gradYear
+                                    };
+                                    await submitNewUserData(newUserData);
+                                    window.location = "/parent/mytuteesummaries";
+                                }
+                            })
+                        }
+                    })
+                }
+            } else { //if they selected tutee, do this
+                for (let element of document.querySelectorAll(".tutee-hide")) { //hide all the info that we already have about the tutee
+                    element.style.display = "none";
+                }
+                showSlide("tutee-info");
+                document.querySelector("#tutee-info-next").addEventListener("click", async () => { //on clicking the "next button"
+                    let emails = document.querySelector("input[name='parent-email']").value.replace(", ",",").split(",");
+                    if (emails.length == 1 && emails[0] == "") emails = [];
+                    gradYear = parseInt(document.getElementById("tutee-grad-year").value)
+                    if (emails.length == 0 || emails.every((email) => emailRegExp.test(email)) && gradYear) { // if no email or all emails are valid, submit it
+                        newUserData.gradYear = gradYear
+                        newUserData.parentEmails = emails;
+                        await submitNewUserData(newUserData);
+                        console.log(user);
+                        window.location = "/tutee/" + user._id;
+                        console.log("test");
+                    }
+                })
+            }
+        })
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 async function doLogin() { //add click listener to #google-login button which will do the login
     let newUserData = {};
