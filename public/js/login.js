@@ -25,6 +25,10 @@ async function doLocalLogin() { //add click listener to #google-login button whi
 
         // passport local
 
+
+        passport.authenticate('local', { failureRedirect: '/login', failureMessage: true });
+
+
         //check if user has roles, if they do, assume they don't need more data. If they don't, send them through the first time login flow
         if (user.roles.length != 0) {
             if(user.roles.includes("tutor")){
