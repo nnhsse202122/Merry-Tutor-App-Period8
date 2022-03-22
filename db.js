@@ -14,6 +14,7 @@ const uri = `${protocol}://admin:${process.env.MONGO_PASSWORD}@${mongoHost}/merr
 
 const connected = mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log(err));
 
+// change user schema to be more inclusive for parents and children
 const userSchema = new mongoose.Schema({
     name: {
         first: String,
