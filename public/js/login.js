@@ -6,8 +6,16 @@ gapi.load("auth2", () => { //load the google auth2 api and start it (loaded prev
 })
 
 document.querySelector("#google-login").addEventListener("click",doLogin); 
+// document.querySelector("#auth-register").addEventListener("click",doPassportLogin);
 
 if (new URL(window.location.href).searchParams.get("firstTimeFlow") != null) doLogin();
+
+
+
+// async function doPassportLogin() {
+//     // change this to passport
+//     console.log("dfsdf");
+// }
 
 async function doLogin() { //add click listener to #google-login button which will do the login
     let newUserData = {};
@@ -31,6 +39,7 @@ async function doLogin() { //add click listener to #google-login button which wi
         })
         var user = await res.json();
 
+        // code from here is usable (in fact the exact same) for a local passport login
         //check if user has roles, if they do, assume they don't need more data. If they don't, send them through the first time login flow
         if (user.roles.length != 0) {
             if(user.roles.includes("tutor")){

@@ -14,6 +14,7 @@ const uri = `${protocol}://admin:${process.env.MONGO_PASSWORD}@${mongoHost}/merr
 
 const connected = mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log(err));
 
+// change user schema to be more inclusive for parents and children
 const userSchema = new mongoose.Schema({
     name: {
         first: String,
@@ -26,6 +27,26 @@ const userSchema = new mongoose.Schema({
     graduation_year: Number
 });
 const User = mongoose.model("User", userSchema);
+
+// new passport method
+const PassportUserSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true  
+    },
+
+    email: {
+        type: String,
+        required: true  
+    },
+
+    password: {
+        type: String,
+        required: true  
+    }
+});
+
+const PassportUser = mongoose.model('PassportUser', PassportUserSchema);
 
 const sessionSchema = new mongoose.Schema({
     date: Date,
