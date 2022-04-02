@@ -31,9 +31,18 @@ const User = mongoose.model("User", userSchema);
 // new passport method
 const PassportUserSchema = new mongoose.Schema({
     name: {
-        type: String,
+        first: String,
+        last: String,
+        
+        roles: [String],
+        children: [String],
+        grauation_year:Number;
         required: true  
     },
+    roles: {type: [String], required: true},
+    children: {type: [String], required: true},
+    
+    grauation_year:{type: Number, required:true},
 
     email: {
         type: String,
