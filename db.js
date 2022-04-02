@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 // new passport method
-const PassportUserSchema = new mongoose.Schema({
+const PassportParentUserSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true  
@@ -43,8 +43,35 @@ const PassportUserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true  
+    },
+
+    children: {
+        type: String,
+        required: true
     }
 });
+
+const PassportChildUserSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true  
+    },
+
+    email: {
+        type: String,
+        required: true  
+    },
+
+    password: {
+        type: String,
+        required: true  
+    },
+
+    graduation_year: {
+        type: Number,
+        required: true
+    }
+})
 
 const PassportUser = mongoose.model('PassportUser', PassportUserSchema);
 
