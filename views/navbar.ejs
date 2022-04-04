@@ -40,8 +40,10 @@
                 <% } %>
                 <div class="mx-2">
                     <% if (typeof user != "object") {%>
+                        <a class="btn btn-light" href="/googleLogin">Sign in with Google</a>
                         <a class="btn btn-light" href="/register">Sign Up</a>
                         <a class="btn btn-light" href="/login">Log In</a>
+                        
                     <% } else {%>
                         <div class="dropdown">
                             <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
