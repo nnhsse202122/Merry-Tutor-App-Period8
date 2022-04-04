@@ -21,71 +21,23 @@
                             <input id = "last_name" type="text" name="name" placeholder="Last Name"><br><br>
                             <input id = "username" type="text" name="username" placeholder="example@email.com"><br><br>
                             <input id = "password" type="password" name="password" placeholder="Password"><br><br>
+                            <input id = "tutee-grad-year" type="tutee-grad-year" name="tutee-grad-year" placeholder="Graduation Year(Tutee only)"><br><br>
+                            <form">
+                                <label for="role-select">Choose a role:</label>
+                                <select name="roles" id="roles">
+                                  
+                                    <option value="tutee">Tutee</option>
+                                    <option value="parent">Parent</option>
+                                 
+                                </select>
+                                <br><br>
+                             
+                              </form>
                             
-                            <input type="button" id = "auth-register" value="Next">
+                            <input type="button" id = "auth-register" value="Register">
                         </form>
                         <h6 class="form-label" for="tutee-email">Already Have an Account? <a href="/login">Login</a></h6>
                     </div>
-                </div>
-                <div id="role-select">
-                    <div class="login-text">
-                        <h2>Are You a Tutee or Parent?</h2>
-                        <h6>Please Select an Option Below</h6>
-                    </div>
-                    <hr>
-                    <div class="signin-opts">
-                        <button id="role-tutee">Tutee</button>
-                        <button id="role-parent">Parent</button>
-                    </div>
-                </div>
-                <div id="parent-tutee-dialog">
-                    <div class="login-text">
-                        <h2>Does Your Tutee Have An Account?</h2>
-                        <h6>Please Select an Option Below</h6>
-                    </div>
-                    <hr>
-                    <div class="signin-opts">
-                        <button id="child-acc-yes">Yes</button>
-                        <button id="child-acc-no">No</button>
-                    </div>
-                </div>
-                <div id="parent-child-link">
-                    <div class="login-text">
-                        <h2>Signed Up Tutee Information</h2>
-                        <h6>Please Input The Following Information</h6>
-                    </div>
-                    <hr>
-                    <form>
-                        <label class="form-label" for="tutee-email">Tutee Email</label><br>
-                        <input type="text" name="tutee-email" placeholder="tutee@email.com"><br><br>
-                        <input type="button" id="child-link-next" value="Next">
-                    </form>
-                </div>
-                <div id="tutee-info">
-                    <div class="login-text">
-                        <h2>Tutee Information</h2>
-                        <h6>Please Input The Following Information</h6>
-                    </div>
-                    <hr>
-                    <form>
-                        <div class="tutee-hide">
-                            <label class="form-label" for="tutee-name">Tutee Name</label><br>
-                            <input type="text" name="tutee-name" placeholder="Last, First"><br><br>
-                            <label class="form-label" for="tutee-email">Tutee Email (optional)</label><br>
-                            <input type="text" name="tutee-email" placeholder="tutee@email.com"><br><br>
-                        </div>
-                        <div class="parent-hide">
-                            <label class="form-label" for="parent-email">Parent Email(s)</label><br>
-                            <input type="text" name="parent-email" placeholder="parent@email.com"><br><br>
-                        </div>
-                        <label for="tutee-grad-year" class="form-label">Tutee's High School Graduation Year:</label><br>
-                        <input type="number" name="tutee-grad-year" id="tutee-grad-year" placeholder="YYYY" min="1970" max="9999"><br><br>
-                        <script>
-                            document.getElementById("tutee-grad-year").min = new Date().getFullYear();
-                            document.getElementById("tutee-grad-year").value = new Date().getFullYear();
-                        </script>
-                        <input type="button" id="tutee-info-next" value="Next">
-                    </form>
                 </div>
             </div>
         </div>
