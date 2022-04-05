@@ -18,7 +18,19 @@ async function doRegister(){
     
     let decision=document.querySelector("#roles");
     newPassportUserData.roles=decision.value;
+
+    let res = await fetch("/auth/v1/passportUser", { //send the googleUser's id_token which has all the data we want to the server with a POST request
+        method: "POST",
+        body: JSON.stringify({
+            newPassportUserData
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    var user = await res.json();
     
+
     
     
    

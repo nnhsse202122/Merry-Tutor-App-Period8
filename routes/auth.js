@@ -6,6 +6,7 @@ let oAuth2Client = new OAuth2Client(CLIENT_ID);
 
 const db = require("../db.js");
 
+
  
 /*
     User Data Schema:
@@ -26,10 +27,12 @@ const db = require("../db.js");
 router = express.Router();
 router.post("/v1/google", async (req, res) => { //login.js sends the id_token to this url, we'll verify it and extract its data
     let { token }  = req.body; //get the token from the request body
+    //dafuq?
     let ticket = await oAuth2Client.verifyIdToken({ //verify and decode the id_token
         idToken: token,
         audience: CLIENT_ID
     });
+
     let {sub, email, given_name, family_name} = ticket.getPayload(); //get the user data we care about from the id_token
     let user = await getOrMakeUser(sub, email, (given_name || "").toLowerCase(), (family_name || "").toLowerCase(), null); //call this function to get a reference to the user that's stored in the database
     req.session.userId = user._id; //sets "userId" on the session to the id of the user in the database
@@ -37,6 +40,22 @@ router.post("/v1/google", async (req, res) => { //login.js sends the id_token to
     res.status(201);
     res.json(user);
 })
+
+router.post("/v1/passportUser", async (req, res) => {
+    let {newPassportUserData}=req.body;
+
+    
+    let passportUser=await makeUser(newPassportUserData.given_name, newPassportUserData.family_name, newPassportUserData.email, newPassportUserData.password, newPassportUserData.roles, newPassportUserData.graduation_year);
+
+    
+    //req.session.userID=passportUser._id;
+    console.log("SAVING _ID", req.session.userId)
+    
+    res.status(201);
+    res.json(user);
+
+})
+
 
 router.post("/v1/newUser", async (req, res) => {
     console.log(req.user)
@@ -117,10 +136,12 @@ async function makeUser(given_name, family_name, email, password, roles, graduat
         email: email,
         password: password,
         roles: [],
+        
         children: [],
         graduation_year: graduation_year
     });
     await user.save();
+    return 
 }
 
 async function findIdByEmail(email) {
