@@ -108,6 +108,21 @@ async function getOrMakeUser(google_sub, email, given_name, family_name, graduat
     return user; //return the user (either newly made or updated)
 }
 
+async function makeUser(given_name, family_name, email, password, roles, graduation_year){
+    user=new (await db.getPassportUserModel())({
+        name: {
+            first: given_name,
+            last: family_name
+        },
+        email: email,
+        password: password,
+        roles: [],
+        children: [],
+        graduation_year: graduation_year
+    });
+    await user.save();
+}
+
 async function findIdByEmail(email) {
     // find one doc with name.first being the first name and name.last being the last name. All names are stored in lower case.
     let userDoc = await (await db.getUserModel()).findOne({email:email});

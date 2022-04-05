@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model("User", userSchema);
 
-// new passport method
+// new passport model
 const PassportUserSchema = new mongoose.Schema({
     name: {
         first: String,
@@ -83,5 +83,9 @@ module.exports = {
     async getUserModel() {
         await connected;    // wait until connected to MongoDB
         return User;
+    },
+    async getPassportUserModel(){
+        await connected;
+        return PassportUser
     }
 };
