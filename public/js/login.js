@@ -12,10 +12,9 @@ if (new URL(window.location.href).searchParams.get("firstTimeFlow") != null) doL
 
 
 
-// async function doPassportLogin() {
-//     // change this to passport
-//     console.log("dfsdf");
-// }
+async function doPassportLogin() { // must complete this method expeditiously
+    console.log("dfsdf");
+}
 
 async function doLogin() { //add click listener to #google-login button which will do the login
     let newUserData = {};
