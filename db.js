@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
         last: String
     },
     email: String,
+    password: String,
     google_sub: String,
     roles: [String],
     children: [String],
@@ -28,19 +29,7 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model("User", userSchema);
 
-// new passport model
-const PassportUserSchema = new mongoose.Schema({
-    name: {
-        first: String,
-        last: String
-    },
-    email: String,
-    password: String,
-    roles: [String],
-    children: [String],
-    graduation_year: Number
-});
-const PassportUser = mongoose.model('PassportUser', PassportUserSchema);
+
 
 const sessionSchema = new mongoose.Schema({
     date: Date,
@@ -84,8 +73,4 @@ module.exports = {
         await connected;    // wait until connected to MongoDB
         return User;
     },
-    async getPassportUserModel(){
-        await connected;
-        return PassportUser
-    }
 };

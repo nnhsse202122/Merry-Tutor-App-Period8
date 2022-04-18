@@ -5,7 +5,7 @@ document.querySelector("#auth-register").addEventListener("click",doRegister);
 
 async function doRegister(){
     
-    let newPassportUserData=[];
+    let newPassportUserData={};
     newPassportUserData.given_name=document.querySelector("#signup-info input[name=first-name]").value;
     
     newPassportUserData.family_name=document.querySelector("#signup-info input[name=last-name]").value;
@@ -19,7 +19,9 @@ async function doRegister(){
     let decision=document.querySelector("#roles");
     newPassportUserData.roles=decision.value;
 
-    let res = await fetch("/auth/v1/passportUser", { //send the googleUser's id_token which has all the data we want to the server with a POST request
+    console.log(newPassportUserData);
+
+    let res = await fetch("/auth/v1/passportUser", { 
         method: "POST",
         body: JSON.stringify({
             newPassportUserData
@@ -29,7 +31,7 @@ async function doRegister(){
         }
     })
     var user = await res.json();
-    
+    console.log(user);
 
     
     

@@ -17,6 +17,7 @@ const db = require("../db.js");
             last: "Last"
         },
         email: "example@gmail.com", (optional)
+        password" "password", (optional)
         google_sub: "string", (optional)
         roles: ["tutee", "parent", "tutor", "board"],
         children: ["id1", "id2"],
@@ -27,7 +28,7 @@ const db = require("../db.js");
 router = express.Router();
 router.post("/v1/google", async (req, res) => { //login.js sends the id_token to this url, we'll verify it and extract its data
     let { token }  = req.body; //get the token from the request body
-    //dafuq?
+  
     let ticket = await oAuth2Client.verifyIdToken({ //verify and decode the id_token
         idToken: token,
         audience: CLIENT_ID
@@ -114,6 +115,7 @@ async function getOrMakeUser(google_sub, email, given_name, family_name, graduat
                 last: family_name
             },
             email: email,
+            password: null, 
             google_sub: google_sub,
             roles: [],
             children: [],
@@ -128,7 +130,7 @@ async function getOrMakeUser(google_sub, email, given_name, family_name, graduat
 }
 
 async function makeUser(given_name, family_name, email, password, roles, graduation_year){
-    user=new (await db.getPassportUserModel())({
+    user=new (await db.getUserModel())({
         name: {
             first: given_name,
             last: family_name
@@ -136,7 +138,7 @@ async function makeUser(given_name, family_name, email, password, roles, graduat
         email: email,
         password: password,
         roles: [],
-        
+        google_sub: null,
         children: [],
         graduation_year: graduation_year
     });
