@@ -4,23 +4,14 @@ var shownSlideId = "base-login";
 document.querySelector("#auth-register").addEventListener("click",doRegister);
 
 async function doRegister(){
-    
     let newPassportUserData={};
     newPassportUserData.given_name=document.querySelector("#signup-info input[name=first-name]").value;
-    
     newPassportUserData.family_name=document.querySelector("#signup-info input[name=last-name]").value;
-    
     newPassportUserData.email=document.querySelector("#signup-info input[name=username]").value;
-    
     newPassportUserData.password=document.querySelector("#signup-info input[name=password]").value;
-    
     newPassportUserData.graduation_year=document.querySelector("#signup-info input[name=tutee-grad-year]").value;
-    
     let decision=document.querySelector("#roles");
     newPassportUserData.roles=decision.value;
-
-    console.log(newPassportUserData);
-
     let res = await fetch("/auth/v1/passportUser", { 
         method: "POST",
         body: JSON.stringify({
@@ -32,11 +23,6 @@ async function doRegister(){
     })
     var user = await res.json();
     console.log(user);
-
     
-    
-   
-    
-   
 }
    

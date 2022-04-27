@@ -43,15 +43,15 @@ router.post("/v1/google", async (req, res) => { //login.js sends the id_token to
 })
 
 router.post("/v1/passportUser", async (req, res) => {
+    
     let {newPassportUserData}=req.body;
+    console.log(newPassportUserData)
+    
+    let passportUser=await makePassportUser(newPassportUserData.given_name.toLowerCase(), newPassportUserData.family_name.toLowerCase(), newPassportUserData.email, newPassportUserData.password, newPassportUserData.roles, newPassportUserData.graduation_year);
 
     
-    let passportUser=await makeUser(newPassportUserData.given_name, newPassportUserData.family_name, newPassportUserData.email, newPassportUserData.password, newPassportUserData.roles, newPassportUserData.graduation_year);
-
-    
-    //req.session.userID=passportUser._id;
-    console.log("SAVING _ID", req.session.userId)
-    
+    req.session.userID=passportUser._id;
+    //console.log("SAVING _ID", req.session.userId)
     res.status(201);
     res.json(user);
 
@@ -129,7 +129,7 @@ async function getOrMakeUser(google_sub, email, given_name, family_name, graduat
     return user; //return the user (either newly made or updated)
 }
 
-async function makeUser(given_name, family_name, email, password, roles, graduation_year){
+async function makePassportUser(given_name, family_name, email, password, roles, graduation_year){
     user=new (await db.getUserModel())({
         name: {
             first: given_name,
