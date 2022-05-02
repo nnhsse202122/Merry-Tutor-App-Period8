@@ -50,7 +50,7 @@ router.post("/v1/passportUser", async (req, res) => {
     let passportUser=await makePassportUser(newPassportUserData.given_name.toLowerCase(), newPassportUserData.family_name.toLowerCase(), newPassportUserData.email, newPassportUserData.password, newPassportUserData.roles, newPassportUserData.graduation_year);
 
     
-    req.session.userID=passportUser._id;
+    
     //console.log("SAVING _ID", req.session.userId)
     res.status(201);
     res.json(user);
