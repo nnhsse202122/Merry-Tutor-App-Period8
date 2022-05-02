@@ -6,6 +6,7 @@ let oAuth2Client = new OAuth2Client(CLIENT_ID);
 
 const db = require("../db.js");
 
+
  
 /*
     User Data Schema:
@@ -16,6 +17,7 @@ const db = require("../db.js");
             last: "Last"
         },
         email: "example@gmail.com", (optional)
+        password" "password", (optional)
         google_sub: "string", (optional)
         roles: ["tutee", "parent", "tutor", "board"],
         children: ["id1", "id2"],
@@ -26,10 +28,12 @@ const db = require("../db.js");
 router = express.Router();
 router.post("/v1/google", async (req, res) => { //login.js sends the id_token to this url, we'll verify it and extract its data
     let { token }  = req.body; //get the token from the request body
+  
     let ticket = await oAuth2Client.verifyIdToken({ //verify and decode the id_token
         idToken: token,
         audience: CLIENT_ID
     });
+
     let {sub, email, given_name, family_name} = ticket.getPayload(); //get the user data we care about from the id_token
     let user = await getOrMakeUser(sub, email, (given_name || "").toLowerCase(), (family_name || "").toLowerCase(), null); //call this function to get a reference to the user that's stored in the database
     req.session.userId = user._id; //sets "userId" on the session to the id of the user in the database
@@ -37,6 +41,22 @@ router.post("/v1/google", async (req, res) => { //login.js sends the id_token to
     res.status(201);
     res.json(user);
 })
+
+router.post("/v1/passportUser", async (req, res) => {
+    
+    let {newPassportUserData}=req.body;
+    console.log(newPassportUserData)
+    
+    let passportUser=await makePassportUser(newPassportUserData.given_name.toLowerCase(), newPassportUserData.family_name.toLowerCase(), newPassportUserData.email, newPassportUserData.password, newPassportUserData.roles, newPassportUserData.graduation_year);
+
+    
+    
+    //console.log("SAVING _ID", req.session.userId)
+    res.status(201);
+    res.json(user);
+
+})
+
 
 router.post("/v1/newUser", async (req, res) => {
     console.log(req.user)
@@ -95,6 +115,7 @@ async function getOrMakeUser(google_sub, email, given_name, family_name, graduat
                 last: family_name
             },
             email: email,
+            password: null, 
             google_sub: google_sub,
             roles: [],
             children: [],
@@ -106,6 +127,23 @@ async function getOrMakeUser(google_sub, email, given_name, family_name, graduat
         (await db.getUserModel()).replaceOne({_id: user._id}, user);
     }
     return user; //return the user (either newly made or updated)
+}
+
+async function makePassportUser(given_name, family_name, email, password, roles, graduation_year){
+    user=new (await db.getUserModel())({
+        name: {
+            first: given_name,
+            last: family_name
+        },
+        email: email,
+        password: password,
+        roles: [],
+        google_sub: null,
+        children: [],
+        graduation_year: graduation_year
+    });
+    await user.save();
+    return 
 }
 
 async function findIdByEmail(email) {
