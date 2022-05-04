@@ -1,4 +1,5 @@
 let express = require("express");
+const { json } = require("express/lib/response");
 const CLIENT_ID = "463712655499-f9d45054qk3ag0bbebvnqd5q8cndsepr.apps.googleusercontent.com"
 
 let {OAuth2Client} = require('google-auth-library');
@@ -6,7 +7,7 @@ const { eachAsyncSeries } = require("mongodb/lib/core/utils");
 let oAuth2Client = new OAuth2Client(CLIENT_ID);
 
 const db = require("../db.js");
-const router = require("./export.js");
+
 
 
  
@@ -27,7 +28,7 @@ const router = require("./export.js");
 
     }
 */
-router = express.Router();
+router=express.Router();
 router.post("/v1/google", async (req, res) => { //login.js sends the id_token to this url, we'll verify it and extract its data
     let { token }  = req.body; //get the token from the request body
   
@@ -55,7 +56,7 @@ router.post("/v1/passportUser", async (req, res) => {
     
     //console.log("SAVING _ID", req.session.userId)
     res.status(201);
-    res.json(user);
+    res.json(passportUser);
 
 })
 
@@ -103,14 +104,13 @@ router.post("/v1/newUser", async (req, res) => {
 
 router.post("/v1/passportUserLogin", async (req, res) => {
     
-    let {loginInfo}=req.body;
-    console.log(loginInfo)
-    
-   
+    let {PassportUserData}=req.body;
+    let password=await findByEmail(PassportUserData.password)
+    res.json(password);
     
     
   
-    res.json(loginInfo);
+    
 
 })
 
@@ -165,7 +165,6 @@ async function makePassportUser(given_name, family_name, email, password, roles,
     await user.save();
     return 
 }
-
 async function findIdByEmail(email) {
     // find one doc with name.first being the first name and name.last being the last name. All names are stored in lower case.
     let userDoc = await (await db.getUserModel()).findOne({email:email});
@@ -175,6 +174,17 @@ async function findIdByEmail(email) {
     user_id = userDoc["_id"];
     return user_id;
 }
+
+async function findByEmail(email) {
+    // find one doc with name.first being the first name and name.last being the last name. All names are stored in lower case.
+    let userDoc = await (await db.getUserModel()).findOne({email:email});
+    if (!userDoc) {
+        return undefined;
+    }
+    user_password = userDoc["password"];
+    return user_password;
+}
+
 
 // Logout
 router.get('/logout', function (req, res) {

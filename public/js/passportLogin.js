@@ -15,6 +15,6 @@ async function doLogin(){
             "Content-Type": "application/json"
         }
     })
-    var user = await res.json();
-    console.log(user);
+    var user=await res.json();
+    console.log(user)
 }
