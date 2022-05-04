@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <meta name="google-signin-client_id" content="463712655499-f9d45054qk3ag0bbebvnqd5q8cndsepr.apps.googleusercontent.com">
+        <%- include("head.ejs") %>
+        <link href="./css/login.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <%- include("navbar.ejs") %>
+        <div id="login-container">
+            <div id="slider-box" class="col-5">
+                <div id="base-login" style="transform:translateX(0%)">
+                    <div class="login-text">
+                        <h2>Sign Up</h2>
+                        <h6>For Tutees, Parents, and Tutors</h6>
+                    </div>
+                    <hr>
+                    <div id="signup-info">
+                        <form>
+                            <label class="form-label" for="tutee-email">Sign Up</label><br>
+                            <input type="text" name="first-name" placeholder="First Name"><br><br>
+                            <input type="text" name="last-name" placeholder="Last Name"><br><br>
+                            <input type="text" name="username" placeholder="example@email.com"><br><br>
+                            <input type="password" name="password" placeholder="Password"><br><br>
+                            <input type="tutee-grad-year" name="tutee-grad-year" placeholder="Graduation Year(Tutee only)"><br><br>
+                            <form">
+                                <label for="role-select">Choose a role:</label>
+                                <select id="roles">
+                                    <option value="tutee">Tutee</option>
+                                    <option value="parent">Parent</option>
+                                </select>
+                                <br><br>
+                              </form>
+                            <input type="button" id = "auth-register" value="Register">
+                        </form>
+                        <h6 class="form-label" for="tutee-email">Already Have an Account? <a href="/login">Login</a></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include("footer.ejs") %>
+        
+        <script src="./js/register.js"></script>
+    </body>
+</html>

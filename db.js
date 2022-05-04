@@ -14,18 +14,22 @@ const uri = `${protocol}://admin:${process.env.MONGO_PASSWORD}@${mongoHost}/merr
 
 const connected = mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log(err));
 
+// change user schema to be more inclusive for parents and children
 const userSchema = new mongoose.Schema({
     name: {
         first: String,
         last: String
     },
     email: String,
+    password: String,
     google_sub: String,
     roles: [String],
     children: [String],
     graduation_year: Number
 });
 const User = mongoose.model("User", userSchema);
+
+
 
 const sessionSchema = new mongoose.Schema({
     date: Date,
@@ -68,5 +72,5 @@ module.exports = {
     async getUserModel() {
         await connected;    // wait until connected to MongoDB
         return User;
-    }
+    },
 };
