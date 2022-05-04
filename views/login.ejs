@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+<<<<<<< HEAD
 <head>
     <title>Node Authentication</title>
     <link rel="stylesheet" href="./css/login.css" type="text/css"/>
@@ -48,3 +49,40 @@
 </div>
 </body>
 </html>
+=======
+    <head>
+        <meta name="google-signin-client_id" content="463712655499-f9d45054qk3ag0bbebvnqd5q8cndsepr.apps.googleusercontent.com">
+        <%- include("head.ejs") %>
+        <link href="./css/login.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <%- include("navbar.ejs") %>
+        <div id="login-container">
+            <div id="slider-box" class="col-5">
+                <div id="base-login" style="transform:translateX(0%)">
+                    <div class="login-text">
+                        <h2>Login</h2>
+                        <h6>For Tutees, Parents, and Tutors</h6>
+                    </div>
+                    <hr>
+                    <div class="signin-opts">
+                        <form action = "/users/login" method = "POST">
+                            <label class="form-label" for="tutee-email">Login</label><br>
+                            <input id = "username" type="text" name="tutee-email" placeholder="example@email.com"><br><br>
+                            <input id = "current-password" type="password" name="tutee-password" placeholder="password"><br><br>
+                            <input type="submit" id = "auth-login" value="Login">
+                        </form>
+                       
+                        <h6 class="form-label" for="tutee-email">Don't Have an Account? <a href="/register">Sign Up</a></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include("footer.ejs") %>
+        <!--
+        <script src="https://apis.google.com/js/api.js"></script>
+        <script src="./js/passportLogin.js"></script>
+        -->
+    </body>
+</html>
+>>>>>>> main
