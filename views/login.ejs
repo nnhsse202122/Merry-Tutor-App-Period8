@@ -10,26 +10,26 @@
             <div id="slider-box" class="col-5">
                 <div id="base-login" style="transform:translateX(0%)">
                     <div class="login-text">
-                        <h2>Login</h2>
+                        <h2>Log In</h2>
                         <h6>For Tutees, Parents, and Tutors</h6>
                     </div>
                     <hr>
-                    <div class="nigger">
+                    <div id="login-info">
                         <form>
-                            <label class="form-label" for="tutee-email">Login</label><br>
-                            <input type="text" name="email" placeholder="example@email.com"><br><br>
-                            <input type="password" name="password" placeholder="password"><br><br>
-                            <input type="button" id = "auth-login" value="Login">
+                            
+                            <input type="text" name="username" placeholder="example@email.com"><br><br>
+                            <input type="password" name="password" placeholder="Password"><br><br>
+                           
+                            
+                            <input type="button" id = "auth-login" value="Log In">
                         </form>
-                       
                         <h6 class="form-label" for="tutee-email">Don't Have an Account? <a href="/register">Sign Up</a></h6>
                     </div>
                 </div>
             </div>
         </div>
         <%- include("footer.ejs") %>
-       
+        
         <script src="./js/passportLogin.js"></script>
-    
     </body>
 </html>

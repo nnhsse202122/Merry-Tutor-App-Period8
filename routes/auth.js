@@ -2,9 +2,11 @@ let express = require("express");
 const CLIENT_ID = "463712655499-f9d45054qk3ag0bbebvnqd5q8cndsepr.apps.googleusercontent.com"
 
 let {OAuth2Client} = require('google-auth-library');
+const { eachAsyncSeries } = require("mongodb/lib/core/utils");
 let oAuth2Client = new OAuth2Client(CLIENT_ID);
 
 const db = require("../db.js");
+const router = require("./export.js");
 
 
  
@@ -58,6 +60,8 @@ router.post("/v1/passportUser", async (req, res) => {
 })
 
 
+
+
 router.post("/v1/newUser", async (req, res) => {
     console.log(req.user)
     if (!req.user || req.user.roles.length != 0) {
@@ -96,6 +100,22 @@ router.post("/v1/newUser", async (req, res) => {
     await (await db.getUserModel()).replaceOne({_id: user._id}, user, {upsert: true})
     res.json(true);
 })
+
+router.post("/v1/passportUserLogin", async (req, res) => {
+    
+    let {loginInfo}=req.body;
+    console.log(loginInfo)
+    
+   
+    
+    
+  
+    res.json(loginInfo);
+
+})
+
+
+
 /*
 Return + update a user if match in database otherwise make a new user, add it to the database and return it
 Matching priority:
