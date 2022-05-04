@@ -15,11 +15,11 @@
                     </div>
                     <hr>
                     <div class="signin-opts">
-                        <form action = "/users/login" method = "POST">
+                        <form>
                             <label class="form-label" for="tutee-email">Login</label><br>
                             <input id = "username" type="text" name="tutee-email" placeholder="example@email.com"><br><br>
                             <input id = "current-password" type="password" name="tutee-password" placeholder="password"><br><br>
-                            <input type="submit" id = "auth-login" value="Login">
+                            <input type="button" id = "auth-login" value="Login">
                         </form>
                        
                         <h6 class="form-label" for="tutee-email">Don't Have an Account? <a href="/register">Sign Up</a></h6>
@@ -28,9 +28,8 @@
             </div>
         </div>
         <%- include("footer.ejs") %>
-        <!--
-        <script src="https://apis.google.com/js/api.js"></script>
+       
         <script src="./js/passportLogin.js"></script>
-        -->
+    
     </body>
 </html>
