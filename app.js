@@ -63,7 +63,7 @@ app.get("/googleLogin", (req, res) =>{
 })
 
 app.get("/registrationConfirmation", (req, res) =>{
-    res.render("registrationconfirmation.ejs")
+    res.render("registrationconfirmation.ejs", {user: req.user})
 })
 
 //error handler

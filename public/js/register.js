@@ -3,7 +3,8 @@ var shownSlideId = "base-login";
 
 document.querySelector("#auth-register").addEventListener("click",doRegister);
 
-async function doRegister(){
+function doRegister(){
+    async function a(){
     let newPassportUserData={};
     newPassportUserData.given_name=document.querySelector("#signup-info input[name=first-name]").value;
     newPassportUserData.family_name=document.querySelector("#signup-info input[name=last-name]").value;
@@ -22,6 +23,8 @@ async function doRegister(){
         }
     })
     var user = await res.json();
-    console.log(user)
+    console.log(user);
+}
+a();
     window.location = "/registrationConfirmation";
 }
