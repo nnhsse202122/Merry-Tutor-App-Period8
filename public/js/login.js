@@ -6,16 +6,9 @@ gapi.load("auth2", () => { //load the google auth2 api and start it (loaded prev
 })
 
 document.querySelector("#google-login").addEventListener("click",doLogin); 
-// document.querySelector("#auth-register").addEventListener("click",doPassportLogin);
 
 if (new URL(window.location.href).searchParams.get("firstTimeFlow") != null) doLogin();
 
-
-
-// async function doPassportLogin() {
-//     // change this to passport
-//     console.log("dfsdf");
-// }
 
 async function doLogin() { //add click listener to #google-login button which will do the login
     let newUserData = {};
