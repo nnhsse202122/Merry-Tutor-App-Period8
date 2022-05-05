@@ -16,5 +16,5 @@ async function doLogin(){
         }
     })
     var user=await res.json();
-    console.log(user)
+    alert(user);
 }

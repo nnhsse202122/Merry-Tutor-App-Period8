@@ -50,8 +50,11 @@ router.post("/v1/passportUser", async (req, res) => {
     let {newPassportUserData}=req.body;
     console.log(newPassportUserData)
     
+   
     let passportUser=await makePassportUser(newPassportUserData.given_name.toLowerCase(), newPassportUserData.family_name.toLowerCase(), newPassportUserData.email, newPassportUserData.password, newPassportUserData.roles, newPassportUserData.graduation_year);
 
+    
+   
     
     
     //console.log("SAVING _ID", req.session.userId)
@@ -105,8 +108,8 @@ router.post("/v1/newUser", async (req, res) => {
 router.post("/v1/passportUserLogin", async (req, res) => {
     
     let {PassportUserData}=req.body;
-    let password=await findByEmail(PassportUserData.password);
-    res.json(password);
+    let message=await login(PassportUserData);
+    res.json(message);
     
     
   
@@ -179,10 +182,26 @@ async function findByEmail(email) {
     // find one doc with name.first being the first name and name.last being the last name. All names are stored in lower case.
     let userDoc = await (await db.getUserModel()).findOne({email:email});
     if (!userDoc) {
-        return undefined;
+        return "no";
     }
-    user_password = userDoc["password"];
-    return user_password;
+    
+    return "yes";
+}
+
+async function login(user){
+    let userDoc = await (await db.getUserModel()).findOne({email:user.email});
+    if (!userDoc) {
+        return "The user does not exist";
+    }
+    else{
+        if (user.password==userDoc.password){
+            return "Login success"
+        }
+        else{
+            return "Password incorrect"
+        }
+    }
+    
 }
 
 
