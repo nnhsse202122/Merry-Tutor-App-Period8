@@ -75,6 +75,7 @@ async function doLogin() { //add click listener to #google-login button which wi
                                     newUserData.existingChildEmail = email;
                                     await submitNewUserData(newUserData);
                                     window.location = "/parent/mytuteesummaries";
+                                    //showSlide("registration-confirmation");
                                 }
                             })
                         } else { //the parent's child doesn't have an account
@@ -97,6 +98,9 @@ async function doLogin() { //add click listener to #google-login button which wi
                                     await submitNewUserData(newUserData);
                                     window.location = "/parent/mytuteesummaries";
                                 }
+                                else{
+                                    showSlide("registration-confirmation");
+                                }
                             })
                         }
                     })
@@ -117,11 +121,15 @@ async function doLogin() { //add click listener to #google-login button which wi
                         console.log(user);
                         window.location = "/tutee/" + user._id;
                         console.log("test");
+                        showSlide("registration-confirmation");
+                    }
+                    else{
                     }
                 })
             }
         })
     }
+       // put code here
 }
 
 /* First Time Login Flow */
