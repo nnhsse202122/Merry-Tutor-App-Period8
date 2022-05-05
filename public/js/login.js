@@ -75,7 +75,6 @@ async function doLogin() { //add click listener to #google-login button which wi
                                     newUserData.existingChildEmail = email;
                                     await submitNewUserData(newUserData);
                                     window.location = "/parent/mytuteesummaries";
-                                    //showSlide("registration-confirmation");
                                 }
                             })
                         } else { //the parent's child doesn't have an account
@@ -84,23 +83,24 @@ async function doLogin() { //add click listener to #google-login button which wi
                             }
                             document.querySelector("#tutee-info .login-text h2").innerHTML = "Your Tutee's Information";
                             showSlide("tutee-info");
-                            document.querySelector("#tutee-info-next").addEventListener("click", async () => {
-                                let email = document.querySelector("#tutee-info input[name=tutee-email]").value;
-                                let name = {};
-                                [name.last, name.first] = document.querySelector("#tutee-info input[name=tutee-name]").value.replace(", ",",").split(",");
-                                gradYear = parseInt(document.getElementById("tutee-grad-year").value)
-                                if ( name.last && name.first && (!email || emailRegExp.test(email)) && gradYear) {
-                                    newUserData.newChildData = {
-                                        name,
-                                        email,
-                                        gradYear
-                                    };
-                                    await submitNewUserData(newUserData);
-                                    window.location = "/parent/mytuteesummaries";
+                            document.querySelector("#tutee-info-next").addEventListener("click", /*async*/ () => {
+                                async function a(){
+                                    let email = document.querySelector("#tutee-info input[name=tutee-email]").value;
+                                    let name = {};
+                                    [name.last, name.first] = document.querySelector("#tutee-info input[name=tutee-name]").value.replace(", ",",").split(",");
+                                    gradYear = parseInt(document.getElementById("tutee-grad-year").value)
+                                    if ( name.last && name.first && (!email || emailRegExp.test(email)) && gradYear) {
+                                        newUserData.newChildData = {
+                                            name,
+                                            email,
+                                            gradYear
+                                        };
+                                        await submitNewUserData(newUserData);
+                                        window.location = "/parent/mytuteesummaries";
+                                    }
                                 }
-                                else{
-                                    showSlide("registration-confirmation");
-                                }
+                                a();
+                                showSlide("registration-confirmation");
                             })
                         }
                     })
@@ -121,9 +121,6 @@ async function doLogin() { //add click listener to #google-login button which wi
                         console.log(user);
                         window.location = "/tutee/" + user._id;
                         console.log("test");
-                        showSlide("registration-confirmation");
-                    }
-                    else{
                     }
                 })
             }
