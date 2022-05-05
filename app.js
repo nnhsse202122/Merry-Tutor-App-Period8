@@ -50,16 +50,16 @@ app.get("/", (req,res) => {
 })
 
 app.get("/login", (req,res) => {
-    res.render("login.ejs");
+    res.render("login.ejs",{user: req.user});
 })
 
 
 app.get("/register", (req,res) => {
-    res.render("register.ejs")
+    res.render("register.ejs",{user: req.user})
 })
 
 app.get("/googleLogin", (req, res) =>{
-    res.render("googleLogin.ejs")
+    res.render("googleLogin.ejs",{user: req.user})
 })
 
 app.get("/registrationConfirmation", (req, res) =>{
