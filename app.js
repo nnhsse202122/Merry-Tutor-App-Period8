@@ -62,6 +62,9 @@ app.get("/googleLogin", (req, res) =>{
     res.render("googleLogin.ejs")
 })
 
+app.get("/registrationConfirmation", (req, res) =>{
+    res.render("registrationconfirmation.ejs")
+})
 
 //error handler
 app.use((err, req, res, next) => {

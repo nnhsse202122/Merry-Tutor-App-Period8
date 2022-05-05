@@ -83,24 +83,28 @@ async function doLogin() { //add click listener to #google-login button which wi
                             }
                             document.querySelector("#tutee-info .login-text h2").innerHTML = "Your Tutee's Information";
                             showSlide("tutee-info");
-                            document.querySelector("#tutee-info-next").addEventListener("click", async () => {
-                                let email = document.querySelector("#tutee-info input[name=tutee-email]").value;
-                                let name = {};
-                                [name.last, name.first] = document.querySelector("#tutee-info input[name=tutee-name]").value.replace(", ",",").split(",");
-                                gradYear = parseInt(document.getElementById("tutee-grad-year").value)
-                                if ( name.last && name.first && (!email || emailRegExp.test(email)) && gradYear) {
-                                    newUserData.newChildData = {
-                                        name,
-                                        email,
-                                        gradYear
+                            document.querySelector("#tutee-info-next").addEventListener("click", /*async*/ () => {
+                                async function a(){
+                                    let email = document.querySelector("#tutee-info input[name=tutee-email]").value;
+                                    let name = {};
+                                    [name.last, name.first] = document.querySelector("#tutee-info input[name=tutee-name]").value.replace(", ",",").split(",");
+                                    gradYear = parseInt(document.getElementById("tutee-grad-year").value)
+                                    if ( name.last && name.first && (!email || emailRegExp.test(email)) && gradYear) {
+                                        newUserData.newChildData = {
+                                            name,
+                                            email,
+                                            gradYear
+                                        };
+                                        await submitNewUserData(newUserData);
+                                        window.location = "/parent/mytuteesummaries";
                                     };
-                                    await submitNewUserData(newUserData);
-                                    window.location = "/parent/mytuteesummaries";
-                                }
-                            })
-                        }
-                    })
-                }
+                                };
+                                a();
+                                showSlide("registration-confirmation");
+                            });
+                        };
+                    });
+                };
             } else { //if they selected tutee, do this
                 for (let element of document.querySelectorAll(".tutee-hide")) { //hide all the info that we already have about the tutee
                     element.style.display = "none";
@@ -122,6 +126,7 @@ async function doLogin() { //add click listener to #google-login button which wi
             }
         })
     }
+       // put code here
 }
 
 /* First Time Login Flow */

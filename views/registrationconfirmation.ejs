@@ -1,9 +1,19 @@
 <html>
     <head>
+        <meta name="google-signin-client_id" content="463712655499-f9d45054qk3ag0bbebvnqd5q8cndsepr.apps.googleusercontent.com">
         <%- include("head.ejs") %>
+        <link href="./css/login.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h6>You have successfully registered</h6>
-        <h6><a href="/login">Login</a></h6>
+        <%- include("navbar.ejs") %>
+        <div>
+            <h6>You have successfully registered</h6>
+            <h6>please <a href="/login">login</a></h6>
+        </div>
+        <%- include("footer.ejs") %>
+        <!--
+        <script src="https://apis.google.com/js/api.js"></script>
+        <script src="./js/passportLogin.js"></script>
+        -->
     </body>
 </html>

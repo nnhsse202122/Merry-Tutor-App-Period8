@@ -23,6 +23,5 @@ async function doRegister(){
     })
     var user = await res.json();
     console.log(user);
-    
+    window.location = "/registrationConfirmation";
 }
-   
