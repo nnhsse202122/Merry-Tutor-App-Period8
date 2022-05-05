@@ -105,7 +105,7 @@ router.post("/v1/newUser", async (req, res) => {
 router.post("/v1/passportUserLogin", async (req, res) => {
     
     let {PassportUserData}=req.body;
-    let password=await findByEmail(PassportUserData.password)
+    let password=await findByEmail(PassportUserData.password);
     res.json(password);
     
     
@@ -137,7 +137,7 @@ async function getOrMakeUser(google_sub, email, given_name, family_name, graduat
             email: email,
             password: null, 
             google_sub: google_sub,
-            roles: [],
+            role: [],
             children: [],
             graduation_year: graduation_year
         });
@@ -157,7 +157,7 @@ async function makePassportUser(given_name, family_name, email, password, roles,
         },
         email: email,
         password: password,
-        roles: [],
+        roles: [roles],
         google_sub: null,
         children: [],
         graduation_year: graduation_year
