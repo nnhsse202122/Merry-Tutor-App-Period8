@@ -21,8 +21,27 @@
                             <input type="text" name="last-name" placeholder="Last Name"><br><br>
                             <input type="text" name="username" placeholder="example@email.com"><br><br>
                             <input type="password" name="password" placeholder="Password"><br><br>
-                            <input type="tutee-grad-year" name="tutee-grad-year" placeholder="Graduation Year(Tutee only)"><br><br>
-                            <form">
+                            <!-- <input type="tutee-grad-year" name="tutee-grad-year" placeholder="Graduation Year(Tutee only)"><br><br> -->
+                            <form>
+                                <label for="gradyear-select">Graduation Year:</label>
+                                <select id="year">
+                                    <option value="parent">I'm a parent</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                    <option value="2029">2029</option>
+                                    <option value="2030">2030</option>
+                                    <option value="2031">2031</option>
+                                    <option value="2032">2032</option>
+                                    <option value="2033">2033</option>
+                                </select>
+                                <br><br>
+                            </form>
+                            <form>
                                 <label for="role-select">Choose a role:</label>
                                 <select id="roles">
                                     <option value="tutee">Tutee</option>
@@ -30,7 +49,7 @@
                                     <option value="tutee">Tutor</option>
                                 </select>
                                 <br><br>
-                              </form>
+                            </form>
                             <input type="button" id = "auth-register" value="Register">
                         </form>
                         <h6 class="form-label" for="tutee-email">Already Have an Account? <a href="/login">Login</a></h6>
