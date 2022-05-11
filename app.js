@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express(); //create express app
 
+
 app.set("view engine", "ejs"); //use EJS for view engine
 app.use(express.static("public")) //static files served from /public/, (eg. url.com/img/example.png serves from /public/img/example.png)
 
@@ -13,7 +14,7 @@ app.use(bodyParser.json()); //body parser for json
 app.use(bodyParser.urlencoded()); //body parser for urlencoded
 
 const { Router, response } = require("express");
-
+const bcrypt=require('bcrypt')
 const db = require("./db.js");
 const mongoose = require('mongoose')
 

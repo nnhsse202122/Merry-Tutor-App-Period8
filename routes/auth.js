@@ -8,6 +8,7 @@ const { eachAsyncSeries } = require("mongodb/lib/core/utils");
 let oAuth2Client = new OAuth2Client(CLIENT_ID);
 
 const db = require("../db.js");
+const bcrypt=require('bcrypt')
 
 
 
@@ -170,7 +171,7 @@ async function makePassportUser(given_name, family_name, email, password, roles,
             last: family_name
         },
         email: email,
-        password: password,
+        password: await bcrypt.hash(password, 10),
         roles: [roles],
         google_sub: null,
         children: [],
@@ -205,8 +206,7 @@ async function login(user){
         return "The user does not exist";
     }
     else{
-        if (user.password==userDoc.password){
-            
+        if (/*user.password==userDoc.password*/await bcrypt.compare(user.password, userDoc.password)){
             return "Login success"
         }
         else{

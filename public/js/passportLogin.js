@@ -5,7 +5,6 @@ async function doLogin(){
     let PassportUserData={};
     PassportUserData.email=document.querySelector("#login-info input[name=username]").value;
     PassportUserData.password=document.querySelector("#login-info input[name=password]").value;
-    
     let res = await fetch("/auth/v1/passportUserLogin", { 
         method: "POST",
         body: JSON.stringify({

@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/nnhsse202021/merry-tutor#readme",
   "dependencies": {
+    "bcrpyt": "^2.0.0",
+    "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
