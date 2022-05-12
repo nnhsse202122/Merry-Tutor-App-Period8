@@ -1,4 +1,5 @@
 let express = require("express");
+const req = require("express/lib/request");
 const { json } = require("express/lib/response");
 const CLIENT_ID = "463712655499-f9d45054qk3ag0bbebvnqd5q8cndsepr.apps.googleusercontent.com"
 
@@ -7,6 +8,7 @@ const { eachAsyncSeries } = require("mongodb/lib/core/utils");
 let oAuth2Client = new OAuth2Client(CLIENT_ID);
 
 const db = require("../db.js");
+const bcrypt=require('bcrypt')
 
 
 
@@ -48,11 +50,11 @@ router.post("/v1/google", async (req, res) => { //login.js sends the id_token to
 router.post("/v1/passportUser", async (req, res) => {
     
     let {newPassportUserData}=req.body;
-    console.log(newPassportUserData)
+  
     
    
     let passportUser=await makePassportUser(newPassportUserData.given_name.toLowerCase(), newPassportUserData.family_name.toLowerCase(), newPassportUserData.email, newPassportUserData.password, newPassportUserData.roles, newPassportUserData.graduation_year);
-
+    
     
    
     
@@ -108,16 +110,26 @@ router.post("/v1/newUser", async (req, res) => {
 router.post("/v1/passportUserLogin", async (req, res) => {
     
     let {PassportUserData}=req.body;
-    let message=await login(PassportUserData);
+    
+    let response=await login(PassportUserData);
+    if (response.message=="Login success"){
+        req.session.userId = response.userDoc._id;
+        res.json(response);
+        console.log(response.userDoc)
+    }
+    else{
+        res.json(response);
+    }
+})
+
+router.post("/v1/checkForDuplicate", async (req, res) => {
+    
+    let {newPassportUserData}=req.body;
+    let message=await findByEmail(newPassportUserData.email);
     res.json(message);
-    
-    
-  
     
 
 })
-
-
 
 /*
 Return + update a user if match in database otherwise make a new user, add it to the database and return it
@@ -159,14 +171,14 @@ async function makePassportUser(given_name, family_name, email, password, roles,
             last: family_name
         },
         email: email,
-        password: password,
+        password: await bcrypt.hash(password, 10),
         roles: [roles],
         google_sub: null,
         children: [],
         graduation_year: graduation_year
     });
     await user.save();
-    return 
+    return user
 }
 async function findIdByEmail(email) {
     // find one doc with name.first being the first name and name.last being the last name. All names are stored in lower case.
@@ -188,17 +200,19 @@ async function findByEmail(email) {
     return "yes";
 }
 
+//DO NOT CHANGE ANY OF THE MESSAGES
+//DYLAN WON'T BE HERE TO HELP YOU!!!!!
 async function login(user){
     let userDoc = await (await db.getUserModel()).findOne({email:user.email});
     if (!userDoc) {
-        return "The user does not exist";
+        return {message:"The user does not exist", userDoc};
     }
     else{
-        if (user.password==userDoc.password){
-            return "Login success"
+        if (/*user.password==userDoc.password*/await bcrypt.compare(user.password, userDoc.password)){
+            return {message:"Login success", userDoc};
         }
         else{
-            return "Password incorrect"
+            return {message:"Password incorrect", userDoc}
         }
     }
     
