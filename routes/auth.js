@@ -111,14 +111,14 @@ router.post("/v1/passportUserLogin", async (req, res) => {
     
     let {PassportUserData}=req.body;
     
-    let message=await login(PassportUserData);
-    if (message=="yes"){
-        res.json(message);
-        req.session.userId = PassportUserData._id;
-        console.log(PassportUserData)
+    let response=await login(PassportUserData);
+    if (response.message=="Login success"){
+        req.session.userId = response.userDoc._id;
+        res.json(response);
+        console.log(response.userDoc)
     }
     else{
-        res.json(message);
+        res.json(response);
     }
 })
 
@@ -200,17 +200,19 @@ async function findByEmail(email) {
     return "yes";
 }
 
+//DO NOT CHANGE ANY OF THE MESSAGES
+//DYLAN WON'T BE HERE TO HELP YOU!!!!!
 async function login(user){
     let userDoc = await (await db.getUserModel()).findOne({email:user.email});
     if (!userDoc) {
-        return "The user does not exist";
+        return {message:"The user does not exist", userDoc};
     }
     else{
         if (/*user.password==userDoc.password*/await bcrypt.compare(user.password, userDoc.password)){
-            return "Login success"
+            return {message:"Login success", userDoc};
         }
         else{
-            return "Password incorrect"
+            return {message:"Password incorrect", userDoc}
         }
     }
     

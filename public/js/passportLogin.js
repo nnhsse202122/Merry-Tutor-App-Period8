@@ -14,6 +14,27 @@ async function doLogin(){
             "Content-Type": "application/json"
         }
     })
-    var user=await res.json();
-    alert(user);
+    var response=await res.json();
+    
+    if(response.message!="Login success"){
+        alert(response.message);
+    } 
+    else{
+        if (response.userDoc.roles.length != 0) {
+            if(response.userDoc.roles.includes("tutor")){
+                window.location = "/summary/new";
+            } else if(response.userDoc.roles.includes("parent")){
+                window.location = "/parent/mytuteesummaries";
+            } else if(response.userDoc.roles.includes("tutee")){
+                window.location = "/tutee/" + response.userDoc._id;
+            } else{
+                window.location = window.location.origin;
+            }
+           
+        }
+    }
+    
+    
+    
+   
 }
