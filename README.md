@@ -1,5 +1,8 @@
 ## Merry Tutor Web App 
-A webapp for the student non-profit Merry Tutor. Allows tutoring session summaries to be submitted, stored, and retrieved by different users of the app. (Board Members, Tutors, Tutees, and Parents will have varying levels of access when using the app.)
+A webapp for the student non-profit Merry Tutor. 
+
+## Brief Overview
+The Merry Tutor webapp allows for tutoring session summaries to be submitted, stored, and retrieved by different users of the app. Because there are multiple roles (Tutors, Tutees, Parents, and Board Members), different users, depending on their role, could have varying levels of access when using the app. Using predominantly Node.js for the backend and EJS for the frontend, the webapp first allows users to register and login and then interact with the session summary interface.
 
 ## Motivation
 Project undertaken for NNHS Software Engineering Class 2020-21. We collaborated with founder Jane Boettcher to replace the less efficient system.
@@ -32,12 +35,32 @@ an editing software such as Virtual Studio Code.
 Visual Studio Code can be installed here: https://code.visualstudio.com/download
 Node.js can be installed here: https://nodejs.org/en/download/
 
-## Developmetn Configuration and Running
+## Development Configuration and Running
 1. Clone the project repository and open in VSCode
 2. Open a terminal window and use "npm i" to install the packages
 3. Once packages are installed, use "npm start" to run the application
 4. Navigate to localhost:8080 to see the app running in a web browser
 5. Use "CTRL + c" to stop the application run
+
+## Installing Necessary Dependencies
+In order to ensure that the new onboarding features work as intended, future programmers will likely have to install a few dependencies when they first launch their editor. Now, with the command "npm i," we can install the dependencies required to run an elementary version of the program. However, after completing the login/register process, there could be extra dependencies that we specifically need to install to ensure a functional program. To install any dependency, we must first type in
+
+```
+npm i (dependency)
+```
+
+The dependencies that likely need to be installed, if they don't show up within the file "package.json" include
+
+- Passport
+- Express
+- EJS
+- BCrypt
+- Mongoose
+
+This website has a number of other dependencies that CAN be installed but don't necessarily have to be installed.
+[LogRocket Blog](https://blog.logrocket.com/using-passport-authentication-node-js/)
+
+If the necessary dependencies are NOT installed, then the project may not run because the onboarding process (login/register) requires specific dependencies to be installed to function.
 
 ## Architectural Overview
 
@@ -153,6 +176,9 @@ sudo pm2 start app.js
 
 ## Contribute
 Pull requests are currently welcome.
+
+## Issues
+All current issues and enhancements are listed in Github issues. For a sentence description of the issue, click the issue to view the comment.
 
 ## License
 TBD
