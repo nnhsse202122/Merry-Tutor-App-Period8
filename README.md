@@ -46,7 +46,7 @@ Node.js can be installed here: https://nodejs.org/en/download/
 In order to ensure that the new onboarding features work as intended, future programmers will likely have to install a few dependencies when they first launch their editor. Now, with the command "npm i," we can install the dependencies required to run an elementary version of the program. However, after completing the login/register process, there could be extra dependencies that we specifically need to install to ensure a functional program. To install any dependency, we must first type in
 
 ```
-npm i <u>(dependency)</u>
+npm i (dependency)
 ```
 
 The dependencies that likely need to be installed, if they don't show up within the file "package.json" include
