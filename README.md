@@ -43,22 +43,22 @@ Node.js can be installed here: https://nodejs.org/en/download/
 5. Use "CTRL + c" to stop the application run
 
 ## Installing Necessary Dependencies
-In order to ensure that the new onboarding features work as intended, future programmers will likely have to install a few dependencies when they first launch their editor. To install any dependency, we must first type in
+In order to ensure that the new onboarding features work as intended, future programmers will likely have to install a few dependencies when they first launch their editor. Now, with the command "npm i," we can install the dependencies required to run an elementary version of the program. However, after completing the login/register process, there could be extra dependencies that we specifically need to install to ensure a functional program. To install any dependency, we must first type in
 
 ```
-npm i ____
+npm i <u>(dependency)</u>
 ```
 
-The dependencies that need to be installed, if they don't show up within the file "package.json" include
+The dependencies that likely need to be installed, if they don't show up within the file "package.json" include
 
-Passport
-Express
-EJS
-BCrypt
-Mongoose
+- Passport
+- Express
+- EJS
+- BCrypt
+- Mongoose
 
 This website has a number of other dependencies that CAN be installed but don't necessarily have to be installed.
-[LogRocket Blog] (https://blog.logrocket.com/using-passport-authentication-node-js/)
+[LogRocket Blog](https://blog.logrocket.com/using-passport-authentication-node-js/)
 
 If the necessary dependencies are NOT installed, then the project may not run because the onboarding process (login/register) requires specific dependencies to be installed to function.
 
