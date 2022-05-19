@@ -59,6 +59,7 @@ async function doRegister(){
             alert("You are not a parent!");
         }
         else{
+            //sends a request to server to check for duplicates 
             let res = await fetch("/auth/v1/checkForDuplicate", { 
                 method: "POST",
                 body: JSON.stringify({
@@ -73,6 +74,7 @@ async function doRegister(){
                 alert("A user with the same email already exists")
             }
             else{
+                //sends a request to server to insert the user object to the MongoDB Database
                 let res = await fetch("/auth/v1/passportUser", { 
                     method: "POST",
                     body: JSON.stringify({
