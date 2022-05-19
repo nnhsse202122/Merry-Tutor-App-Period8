@@ -177,6 +177,9 @@ sudo pm2 start app.js
 ## Contribute
 Pull requests are currently welcome.
 
+## Issues
+All current issues and enhancements are listed in Github issues. For a sentence description of the issue, click the issue to view the comment.
+
 ## License
 TBD
 
