@@ -12,7 +12,8 @@ const bcrypt=require('bcrypt')
 
 
 
- 
+ //please ignore this
+ //the user schema is in db.js
 /*
     User Data Schema:
     {
@@ -47,22 +48,12 @@ router.post("/v1/google", async (req, res) => { //login.js sends the id_token to
     res.json(user);
 })
 
+//registering new user
 router.post("/v1/passportUser", async (req, res) => {
-    
-    let {newPassportUserData}=req.body;
-  
-    
-   
-    let passportUser=await makePassportUser(newPassportUserData.given_name.toLowerCase(), newPassportUserData.family_name.toLowerCase(), newPassportUserData.email, newPassportUserData.password, newPassportUserData.roles, newPassportUserData.graduation_year);
-    
-    
-   
-    
-    
-    //console.log("SAVING _ID", req.session.userId)
+    let {newPassportUserData}=req.body;//get the user data from the stuff that was sent
+    let passportUser=await makePassportUser(newPassportUserData.given_name.toLowerCase(), newPassportUserData.family_name.toLowerCase(), newPassportUserData.email, newPassportUserData.password, newPassportUserData.roles, newPassportUserData.graduation_year);//makes the new user 
     res.status(201);
     res.json(passportUser);
-
 })
 
 
@@ -108,9 +99,7 @@ router.post("/v1/newUser", async (req, res) => {
 })
 
 router.post("/v1/passportUserLogin", async (req, res) => {
-    
     let {PassportUserData}=req.body;
-    
     let response=await login(PassportUserData);
     if (response.message=="Login success"){
         req.session.userId = response.userDoc._id;

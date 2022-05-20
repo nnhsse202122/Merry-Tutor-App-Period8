@@ -108,7 +108,7 @@ async function doLogin() { //add click listener to #google-login button which wi
                     if (emails.length == 1 && emails[0] == "") emails = [];
                     gradYear = parseInt(document.getElementById("tutee-grad-year").value)
                     if (emails.length == 0 || emails.every((email) => emailRegExp.test(email)) && gradYear) { // if no email or all emails are valid, submit it
-                        newUserData.gradYear = gradYear
+                        newUserData.gradYear = gradYear;
                         newUserData.parentEmails = emails;
                         await submitNewUserData(newUserData);
                         console.log(user);
