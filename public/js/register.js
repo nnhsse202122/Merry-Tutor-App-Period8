@@ -4,7 +4,7 @@ const emailRegExp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|
 var shownSlideId = "base-login";
 
 document.querySelector("#auth-register").addEventListener("click", doRegister);
-
+/*
 async function doRegister(){
     let newPassportUserData={};
     //Turn the input data into a newPassportUserData object
@@ -93,29 +93,103 @@ async function doRegister(){
     else{
         alert("One or more fields cannot be empty");
     }
-
-
-
-
-
-/*
-    if (newPassportUserData.given_name!="" && newPassportUserData.family_name!="" && newPassportUserData.email!="" && newPassportUserData.password!=""){
-        let res = await fetch("/auth/v1/passportUser", { 
-            method: "POST",
-            body: JSON.stringify({
-                newPassportUserData
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        var user = await res.json();
-        console.log(user);
-
+}
+*/
+async function doRegister(){
+    let newPassportUserData={};
+    //Turn the input data into a newPassportUserData object
+    newPassportUserData.given_name=document.querySelector("#signup-info input[name=first-name]").value;
+    newPassportUserData.family_name=document.querySelector("#signup-info input[name=last-name]").value;
+    newPassportUserData.email=document.querySelector("#signup-info input[name=username]").value;
+    newPassportUserData.password=document.querySelector("#signup-info input[name=password]").value;
+    newPassportUserData.password2=document.querySelector("#signup-info input[name=password2]").value;
+    let grad_year=document.querySelector("#year").value;
+    if (grad_year=="parent"){
+        newPassportUserData.graduation_year=null;
     }
     else{
-        alert("One or more fields cannot be empty");
+        newPassportUserData.graduation_year=Number(grad_year);
     }
-    */
-   
+    let decision=document.querySelector("#roles");
+    newPassportUserData.roles=decision.value;
+    if (!checkEmpty(newPassportUserData)){
+        alert("One or more fields cannot be empty!")
+    }
+    else{
+        if (newPassportUserData.roles[0]=="t" && newPassportUserData.graduation_year==null){
+            alert("You are not a parent!");
+        }
+        else{
+            if(newPassportUserData.password!=newPassportUserData.password2){
+                alert("The passwords do not match!");
+            }
+            else{
+                if (!ValidateEmail(newPassportUserData.email)){
+                    alert("Please enter a valid email!");
+                }
+                else{
+                    if(await checkForDuplicate(newPassportUserData)){
+                        alert("A user with the same email already exists!");
+                    }
+                    else{
+                        let res = await fetch("/auth/v1/passportUser", { 
+                            method: "POST",
+                            body: JSON.stringify({
+                                newPassportUserData
+                            }),
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        })
+                        var user = await res.json();
+                        console.log(user);
+                        window.location = "/registrationConfirmation";
+                    }
+                }
+               
+            }
+        }
+
+    }
+}
+function checkEmpty(newPassportUserData){
+    if (newPassportUserData.given_name!="" && newPassportUserData.family_name!="" && newPassportUserData.email!="" && newPassportUserData.password!=""){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+async function checkForDuplicate(newPassportUserData){
+    let res = await fetch("/auth/v1/checkForDuplicate", { 
+        method: "POST",
+        body: JSON.stringify({
+            newPassportUserData
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    var status=await res.json();
+    if (status=="yes"){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function ValidateEmail(inputText)
+{
+var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+if(inputText.match(mailformat))
+{
+
+return true;
+}
+else
+{
+return false;
+}
 }
